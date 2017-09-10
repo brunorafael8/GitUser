@@ -4,6 +4,8 @@ import React, { PureComponent } from 'react'
 import {createPaginationContainer, graphql} from 'react-relay'
 import styled from 'styled-components';
 
+import User from './User'
+
 class Home extends PureComponent {
   render () {
     return (
@@ -12,6 +14,7 @@ class Home extends PureComponent {
         <h1 style={styles.HeaderTItle} >GITUSER</h1>
         <Search />
         </Header>
+        <User />
       </div>
     )
   }
