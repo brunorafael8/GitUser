@@ -11,7 +11,8 @@
     "build:analyzer": "cross-env ANALYZER=true yarn build",
     "storybook": "start-storybook -p 6006 -c storybook",
     "build-storybook": "cross-env NODE_ENV=production BABEL_ENV=production build-storybook -c storybook",
-    "update-packages": "node scripts/update.js"
+    "update-packages": "node scripts/update.js",
+    "relay": "relay-compiler --src ./src --schema schema.graphql"
   },
   "jest": {
     "moduleNameMapper": {
@@ -57,6 +58,9 @@
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-relay": "^1.3.0"
+    "react-loadable": "^4.0.5",
+    "react-relay": "^1.3.0",
+    "react-router-dom": "^4.2.2",
+    "styled-components": "^2.1.2"
   }
 }
