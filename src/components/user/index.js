@@ -1,16 +1,19 @@
 'use strict'
-user 
 import React, { PureComponent } from 'react'
 import styled from 'styled-components';
-
+import {
+  createPaginationContainer,
+  graphql
+} from 'react-relay'
 class User extends PureComponent {
   render() {
+    const {query} = this.props.data
     return(
       <div className="container">
         <UserCard>
           <UserDados>
           <img src="" alt="" />
-          <span>Bruno Rafael</span>
+          <span>{query.user.name}</span>
           <span>brunorafael8</span>
           <span>brunorafael8.github.io</span>
           <span>BIO</span>
@@ -32,4 +35,19 @@ const UserDados = styled.div`
   display: flex;
   flex-direction: column;
 `
-export default User
+export default createPaginationContainer(User, graphql`
+  fragment user on Query {
+    user(login: $name) @connection(key: "query"){
+      id
+      name
+      avatarUrl
+    }
+    }
+  `,
+    {
+      getVariables(props, {name}, fragmentVariables) {
+        return {name}
+      }
+    }
+)
+

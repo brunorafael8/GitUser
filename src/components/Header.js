@@ -1,20 +1,17 @@
 'use strict'
 
 import React, { PureComponent } from 'react'
-import {createPaginationContainer, graphql} from 'react-relay'
 import styled from 'styled-components';
 
-import User from './User'
 
-class Home extends PureComponent {
+class Header extends PureComponent {
   render () {
     return (
       <div>
-        <Header>
+        <Background>
         <h1 style={styles.HeaderTItle} >GITUSER</h1>
         <Search />
-        </Header>
-        <User />
+        </Background>
       </div>
     )
   }
@@ -26,7 +23,7 @@ const Search = () => (
   </div>
 );
 
-const Header = styled.div`
+const Background = styled.div`
   display: flex;
   background-color: #000;
   align-items: center;
@@ -57,4 +54,4 @@ const styles = {
   }
 }
 
-export default Home
+export default Header
