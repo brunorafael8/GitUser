@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash dd72344c7f176f542c91ddf8c49f58d8
+ * @relayHash df295fefaeab08810b1c62b652da8234
  */
 
 /* eslint-disable */
@@ -9,23 +9,27 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type appQueryResponse = {| |};
+export type appQueryResponse = {|
+  +user: ?{| |};
+|};
 */
 
 
 /*
 query appQuery(
-  $name: String!
+  $login: String!
 ) {
-  ...userList_User
+  user(login: $login) {
+    ...User_user
+    id
+  }
 }
 
-fragment userList_User on Query {
-  user(login: $name) {
-    id
-    name
-    avatarUrl
-  }
+fragment User_user on User {
+  avatarUrl
+  name
+  login
+  location
 }
 */
 
@@ -34,7 +38,7 @@ const batch /*: ConcreteBatch*/ = {
     "argumentDefinitions": [
       {
         "kind": "LocalArgument",
-        "name": "name",
+        "name": "login",
         "type": "String!",
         "defaultValue": null
       }
@@ -44,9 +48,27 @@ const batch /*: ConcreteBatch*/ = {
     "name": "appQuery",
     "selections": [
       {
-        "kind": "FragmentSpread",
-        "name": "userList_User",
-        "args": null
+        "kind": "LinkedField",
+        "alias": null,
+        "args": [
+          {
+            "kind": "Variable",
+            "name": "login",
+            "variableName": "login",
+            "type": "String!"
+          }
+        ],
+        "concreteType": "User",
+        "name": "user",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "FragmentSpread",
+            "name": "User_user",
+            "args": null
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query"
@@ -59,7 +81,7 @@ const batch /*: ConcreteBatch*/ = {
     "argumentDefinitions": [
       {
         "kind": "LocalArgument",
-        "name": "name",
+        "name": "login",
         "type": "String!",
         "defaultValue": null
       }
@@ -75,7 +97,7 @@ const batch /*: ConcreteBatch*/ = {
           {
             "kind": "Variable",
             "name": "login",
-            "variableName": "name",
+            "variableName": "login",
             "type": "String!"
           }
         ],
@@ -87,7 +109,7 @@ const batch /*: ConcreteBatch*/ = {
             "kind": "ScalarField",
             "alias": null,
             "args": null,
-            "name": "id",
+            "name": "avatarUrl",
             "storageKey": null
           },
           {
@@ -101,7 +123,21 @@ const batch /*: ConcreteBatch*/ = {
             "kind": "ScalarField",
             "alias": null,
             "args": null,
-            "name": "avatarUrl",
+            "name": "login",
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "args": null,
+            "name": "location",
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "args": null,
+            "name": "id",
             "storageKey": null
           }
         ],
@@ -109,7 +145,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query appQuery(\n  $name: String!\n) {\n  ...userList_User\n}\n\nfragment userList_User on Query {\n  user(login: $name) {\n    id\n    name\n    avatarUrl\n  }\n}\n"
+  "text": "query appQuery(\n  $login: String!\n) {\n  user(login: $login) {\n    ...User_user\n    id\n  }\n}\n\nfragment User_user on User {\n  avatarUrl\n  name\n  login\n  location\n}\n"
 };
 
 module.exports = batch;

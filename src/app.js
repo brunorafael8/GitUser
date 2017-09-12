@@ -2,7 +2,7 @@
 
 import React, { PureComponent } from 'react'
 
-import User from 'components/user'
+import User from 'components/User/User'
 import Header from 'components/header'
 
 import './css/style.css'
@@ -16,12 +16,14 @@ import environment from './environment'
 class App extends PureComponent {
   render () {
       const query = graphql`
-      query appQuery($name: String!) {
-        ...user
+      query appQuery ($login: String!) {
+        user (login: $login) {
+          ...User_user
+        }
       }
-      `
+    `;
       const variables = {
-        name: "brunorafael8"
+        login: "brunorafael8"
       }
     return (
       <div>
@@ -34,7 +36,7 @@ class App extends PureComponent {
             if (error) {
               return <div>{error.message}</div>
             } else if (props) {
-              return <User data={props} />
+              return <User user={props.user} />
             }
             return <div>Loading</div>
           }}

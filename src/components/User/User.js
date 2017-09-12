@@ -2,23 +2,23 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components';
 import {
-  createPaginationContainer,
+  createFragmentContainer,
   graphql
 } from 'react-relay'
 class User extends PureComponent {
   render() {
-    const {query} = this.props.data
+    const {user} = this.props;
     return(
       <div className="container">
         <UserCard>
           <UserDados>
-          <img src="" alt="" />
-          <span>{query.user.name}</span>
-          <span>brunorafael8</span>
+          <img src={user.avatarUrl} alt="" />
+          <span>{user.name}</span>
+          <span>{user.login}</span>
           <span>brunorafael8.github.io</span>
           <span>BIO</span>
           <span>Entria</span>
-          <span>Maceió</span>
+          <span>{user.location}</span>
           <span>Blog</span>
           </UserDados>
         </UserCard>
@@ -35,19 +35,14 @@ const UserDados = styled.div`
   display: flex;
   flex-direction: column;
 `
-export default createPaginationContainer(User, graphql`
-  fragment user on Query {
-    user(login: $name) @connection(key: "query"){
-      id
-      name
+export default createFragmentContainer(
+  User,
+  graphql`
+    fragment User_user on User {
       avatarUrl
-    }
+      name
+      login
+      location
     }
   `,
-    {
-      getVariables(props, {name}, fragmentVariables) {
-        return {name}
-      }
-    }
-)
-
+);
