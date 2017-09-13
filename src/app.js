@@ -1,49 +1,29 @@
 'use strict'
 
 import React, { PureComponent } from 'react'
-
-import User from 'components/User/User'
-import Header from 'components/header'
+import Loadable from 'react-loadable'
 
 import './css/style.css'
 import './css/normalize.css'
 
-import {
-  QueryRenderer,
-  graphql,
-} from 'react-relay'
-import environment from './environment'
+function MyLoadingComponent () {
+  return <div>Loading...</div>
+}
+
+const Home = Loadable({
+  loader: () => import('./components/Home'),
+  loading: MyLoadingComponent
+})
+
 class App extends PureComponent {
-  render () {
-      const query = graphql`
-      query appQuery ($login: String!) {
-        user (login: $login) {
-          ...User_user
-        }
-      }
-    `;
-      const variables = {
-        login: "brunorafael8"
-      }
+  render() {
     return (
       <div>
-      <Header/>
-        <QueryRenderer
-          environment={environment}
-          query={query}
-          variables={variables}
-          render={({error, props}) => {
-            if (error) {
-              return <div>{error.message}</div>
-            } else if (props) {
-              return <User user={props.user} />
-            }
-            return <div>Loading</div>
-          }}
-        />
+        <Home />
       </div>
     )
   }
 }
+
 
 export default App

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 1232e3d8c6bb5aa757faa52d8cc09bcb
+ * @relayHash c04f74a0c758b68cdb22e38c7a4e1cff
  */
 
 /* eslint-disable */
@@ -9,14 +9,14 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type appQueryResponse = {|
+export type HomeQueryResponse = {|
   +user: ?{| |};
 |};
 */
 
 
 /*
-query appQuery(
+query HomeQuery(
   $login: String!
 ) {
   user(login: $login) {
@@ -60,7 +60,7 @@ const batch /*: ConcreteBatch*/ = {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "appQuery",
+    "name": "HomeQuery",
     "selections": [
       {
         "kind": "LinkedField",
@@ -91,7 +91,7 @@ const batch /*: ConcreteBatch*/ = {
   "id": null,
   "kind": "Batch",
   "metadata": {},
-  "name": "appQuery",
+  "name": "HomeQuery",
   "query": {
     "argumentDefinitions": [
       {
@@ -102,7 +102,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ],
     "kind": "Root",
-    "name": "appQuery",
+    "name": "HomeQuery",
     "operation": "query",
     "selections": [
       {
@@ -263,7 +263,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query appQuery(\n  $login: String!\n) {\n  user(login: $login) {\n    ...User_user\n    id\n  }\n}\n\nfragment User_user on User {\n  avatarUrl\n  name\n  login\n  bio\n  company\n  location\n  email\n  websiteUrl\n  organizations(first: 10) {\n    edges {\n      node {\n        id\n        avatarUrl\n        teamsUrl\n        url\n        login\n      }\n    }\n  }\n}\n"
+  "text": "query HomeQuery(\n  $login: String!\n) {\n  user(login: $login) {\n    ...User_user\n    id\n  }\n}\n\nfragment User_user on User {\n  avatarUrl\n  name\n  login\n  bio\n  company\n  location\n  email\n  websiteUrl\n  organizations(first: 10) {\n    edges {\n      node {\n        id\n        avatarUrl\n        teamsUrl\n        url\n        login\n      }\n    }\n  }\n}\n"
 };
 
 module.exports = batch;
