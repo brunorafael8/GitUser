@@ -20,7 +20,7 @@ yarn start(or npam start)
 - `yarn storybook (or npm run storybook)`: Run Storybook on `6006` port
 - `yarn build-storybook`: Build Storybook to static files
 - `yarn update-packages`: Update all packages to the latest version
-- `yarn start (or npm start)`: Special script reserved to run production code. Change as you wish. For now, it is the same as `yarn dev`.
+- `yarn start (or npm start)`: Special script reserved to run production code. Change as you wish. For now, use `yarn relay` `yarn schema` `yarn dev`.
 - `yarn relay (or npm run relay)`: Generate Relay.
 - `yarn schema (or npm run relay)`: Genarate schaem.graphql.
 
