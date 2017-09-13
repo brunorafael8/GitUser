@@ -21,7 +21,7 @@ module.exports = {
   },
 
   htmlPluginConfig: {
-    title: 'My app',
+    title: 'GitUser',
     template: join(paths.src, 'html', 'template.html')
   },
 
