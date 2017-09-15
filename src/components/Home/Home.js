@@ -1,97 +1,71 @@
 'use strict'
 
 import React, { PureComponent } from 'react'
+import { QueryRenderer, graphql } from 'react-relay'
+
 import styled from 'styled-components';
 
-import {
-  QueryRenderer,
-  graphql,
-} from 'react-relay'
-import environment from '../../environment'
+import environment from 'src/environment'
 
-import User from './User/User'
+import User from 'components/User/User'
 
-class Home extends PureComponent {
+import Header from 'components/Header/Header'
+import Title from 'components/Title/Title';
+import Search  from 'components/Search/Search';
+import SearchButton from 'components/SearchButton/SearchButton'
+
+import './Home.css';
+
+const query = graphql`
+  query HomeQuery ($login: String!) {
+    user (login: $login) {
+      ... User_user
+    }
+  }
+`;
+
+export default class Home extends PureComponent {
   state = {
     user: null
   };
-  onsearch = (event) => {
+
+  onsearch(event) {
     event.preventDefault();
-    this.setState({ user: this.loginPesquisado.value })
-    console.log(this.state.user);
+    const user = event.target.querySelector('input[type="text"]').value;
+    this.setState({ user });
   }
 
   render () {
-    const query = graphql`
-    query HomeQuery ($login: String!) {
-      user (login: $login) {
-        ... User_user
-        }
-      }
-    `;
-    const variables = {
-      login: this.state.user
-    };
+    const { user } = this.state;
+    const variables = { login: user };
     return (
       <div>
         <Header>
-        <h1 style={styles.HeaderTItle} >GITUSER</h1>
-        <form onSubmit={this.onsearch} >
-          <div style={ styles.HeaderSearch }>
-            <input name="search" placeholder="Pesquisa" type="text" ref={input => this.loginPesquisado = input} style={styles.SearchInput} />
-            <SearchButton  value="Buscar" >Buscar</SearchButton>
-          </div>
-        </form>
+          <Title>Search for your github user</Title>
+          <form className="form form__search" onSubmit={this.onsearch.bind(this)}>
+            <Search name="search" placeholder="Ex.: brunorafael8" type="text" />
+            <SearchButton value="Buscar">
+              Search
+            </SearchButton>
+          </form>
         </Header>
-        { this.state.user &&
-        <QueryRenderer
-          environment={environment}
-          query={query}
-          variables={variables}
-          render={({error, props}) => {
-            if (error) {
-              return <div>{error.message}</div>
-            } else if (props) {
-              return <User user={props.user} />
-            }
-            return <div>Loading...</div>
-          }}
-        />}
+        {user &&
+          <QueryRenderer
+            environment={environment}
+            query={query}
+            variables={variables}
+            render={({ error, props }) => {
+              if (error) console.error(new Error(error));
+
+              if (props) {
+                return <User user={props.user} />
+              } else {
+                return <div>Searching for {user}, loading ...</div>
+              }
+            }}
+          />
+      }
       </div>
     )
   }
 }
-
-
-const Header = styled.div`
-  display: flex;
-  background-color: #24292e;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`
-const SearchButton = styled.button`
-  background-color: #d50000;
-  border: 0;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 18px;
-`
-const styles = {
-  HeaderTItle:{
-    color: '#fff',
-    padding: 20
-  },
-  HeaderSearch:{
-    display: 'flex',
-    paddingBottom: 10,
-    alignItems: 'center'
-  },
-  SearchInput:{
-    borderRadius: 5,
-    height: 45
-
-  }
-}
-
-export default Home

@@ -4,3 +4,4 @@ npm-debug.log
 coverage
 storybook-static
 schema.graphql
+__generated__

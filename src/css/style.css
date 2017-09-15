@@ -1,5 +1,11 @@
 @charset 'utf-8';
 
+form {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
 body {
   background-color: #fff;
   font: 16px/1.2 BlinkMacSystemFont, -apple-system, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif;
