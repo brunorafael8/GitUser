@@ -7,22 +7,24 @@ const {
 
 const store = new Store(new RecordSource())
 
-const network = Network.create((operation, variables) => {
-  return fetch('https://api.github.com/graphql', {
+const network = Network.create((
+  operation,
+  variables,
+) =>
+  fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + "cc32f5dae242b5baf3e1294337baff9699ef87c9"
+      'Authorization': 'Bearer 4f4dea6130fc63f869b15d718edbd9e0cb392136',
     },
     body: JSON.stringify({
       query: operation.text,
       variables,
     }),
-  }).then(response => {
-      return response.json()
   })
-})
+  .then(response => response.json())
+);
 
 const environment = new Environment({
   network,
