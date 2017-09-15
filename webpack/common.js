@@ -12,7 +12,7 @@ module.exports = {
   paths,
 
   entry: {
-    main: join(paths.src, 'index')
+    main: join(paths.src, 'main')
   },
 
   output: {
@@ -22,7 +22,7 @@ module.exports = {
 
   htmlPluginConfig: {
     title: 'GitUser',
-    template: join(paths.src, 'html', 'template.html')
+    template: join(paths.src, 'index.html')
   },
 
   standardPreLoader: {
