@@ -1,29 +1,15 @@
 'use strict'
 
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import Loadable from 'react-loadable'
 
-import './css/style.css'
 import './css/normalize.css'
+import './css/style.css'
 
-function MyLoadingComponent () {
-  return <div>Loading...</div>
-}
-
-const Home = Loadable({
-  loader: () => import('./components/Home'),
-  loading: MyLoadingComponent
-})
-
-class App extends PureComponent {
-  render() {
-    return (
-      <div>
-        <Home />
-      </div>
-    )
-  }
-}
+const App = Loadable({
+  loader: () => import('./components/Home/Home'),
+  loading: () => <h1>Loading...</h1>
+});
 
 
-export default App
+export default () => <App />;
