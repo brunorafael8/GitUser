@@ -13,7 +13,7 @@
     "build-storybook": "cross-env NODE_ENV=production BABEL_ENV=production build-storybook -c storybook",
     "update-packages": "node scripts/update.js",
     "relay": "relay-compiler --src ./src --schema schema.graphql",
-    "schema": "node scripts/Schema.js"
+    "schema": "node scripts/createGithubSchema.js"
   },
   "jest": {
     "moduleNameMapper": {
