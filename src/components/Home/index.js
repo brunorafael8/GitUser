@@ -7,7 +7,7 @@ import {
   QueryRenderer,
   graphql,
 } from 'react-relay'
-import environment from '../../environment'
+import environment from '../../Environment'
 
 import User from './User'
 
