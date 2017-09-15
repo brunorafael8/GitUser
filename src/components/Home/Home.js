@@ -16,7 +16,15 @@ import SearchButton from 'components/SearchButton/SearchButton'
 
 import './Home.css';
 
-class Home extends PureComponent {
+const query = graphql`
+  query HomeQuery ($login: String!) {
+    user (login: $login) {
+      ... User_user
+    }
+  }
+`;
+
+export default class Home extends PureComponent {
   state = {
     user: null
   };
@@ -28,45 +36,36 @@ class Home extends PureComponent {
   }
 
   render () {
-    const query = graphql`
-    query HomeQuery ($login: String!) {
-      user (login: $login) {
-        ... User_user
-        }
-      }
-    `;
-    const variables = {
-      login: this.state.user
-    };
-
+    const { user } = this.state;
+    const variables = { login: user };
     return (
       <div>
         <Header>
           <Title>Search for your github user</Title>
-          <form className="form__search" onSubmit={this.onsearch.bind(this)}>
+          <form className="form form__search" onSubmit={this.onsearch.bind(this)}>
             <Search name="search" placeholder="Ex.: brunorafael8" type="text" />
             <SearchButton value="Buscar">
               Search
             </SearchButton>
           </form>
         </Header>
-        { this.state.user &&
-        <QueryRenderer
-          environment={environment}
-          query={query}
-          variables={variables}
-          render={({error, props}) => {
-            if (error) {
-              return <div>{error.message}</div>
-            } else if (props) {
-              return <User user={props.user} />
-            }
-            return <div>Loading...</div>
-          }}
-        />}
+        {user &&
+          <QueryRenderer
+            environment={environment}
+            query={query}
+            variables={variables}
+            render={({ error, props }) => {
+              if (error) console.error(new Error(error));
+
+              if (props) {
+                return <User user={props.user} />
+              } else {
+                return <div>Searching for {user}, loading ...</div>
+              }
+            }}
+          />
+      }
       </div>
     )
   }
 }
-
-export default Home;
