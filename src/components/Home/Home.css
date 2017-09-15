@@ -1,0 +1,18 @@
+.form__search {
+  width: 50%;
+  display: flex;
+  padding: 1rem 0;
+  align-items: center;
+  justify-content: space-around;
+}
+
+
+.form__search input {
+  flex-grow: 2;
+  margin: 0 .5rem;
+}
+
+.form__search button,
+.form__search input[type="submit"], {
+  flex-grow: 1;
+}
