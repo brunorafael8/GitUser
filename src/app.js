@@ -11,7 +11,7 @@ function MyLoadingComponent () {
 }
 
 const Home = Loadable({
-  loader: () => import('./components/Home'),
+  loader: () => import('./components/Home/Home'),
   loading: MyLoadingComponent
 })
 

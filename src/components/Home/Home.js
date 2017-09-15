@@ -9,7 +9,7 @@ import {
 } from 'react-relay'
 import environment from '../../environment'
 
-import User from './User'
+import User from './User/User'
 
 class Home extends PureComponent {
   state = {
