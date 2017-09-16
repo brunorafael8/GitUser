@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const UserProfile = styled.img`
+const UserProfile = styled.div`
   display: flex;
   flex-direction: column;
   line-height: 30px;

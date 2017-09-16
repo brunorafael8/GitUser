@@ -31,6 +31,7 @@ export default class Home extends PureComponent {
 
   onsearch(event) {
     event.preventDefault();
+    // if(event.target.querySelector('input[type="text"]').legt)
     const user = event.target.querySelector('input[type="text"]').value;
     this.setState({ user });
   }

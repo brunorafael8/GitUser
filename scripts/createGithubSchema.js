@@ -8,7 +8,7 @@ fetch('https://api.github.com/graphql', {
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + "ff934ed2e7628008b03140a0acbd74c12ac8808a"
+    'Authorization': 'Bearer ' + "ae5a357a4d8c35615c91bb282c3bf3921ae87713"
   },
   body: JSON.stringify({ 'query': introspectionQuery }),
 }).then(res => res.json()).then(res => {

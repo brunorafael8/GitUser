@@ -16,7 +16,7 @@ const network = Network.create((
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer 02d1a465a65a923d57dde60788bb4e2c78e5bb0a',
+      'Authorization': 'Bearer 99707c8db6a461bd24f95cd4e2caf77aae5a5468',
     },
     body: JSON.stringify({
       query: operation.text,
