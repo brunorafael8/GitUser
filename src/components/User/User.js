@@ -6,8 +6,8 @@ import {
   graphql
 } from 'react-relay'
 
-import UserProfile from './UserProfile/UserProfile'
-import UserAvatar from './UserAvatar/UserAvatar'
+import UserProfile from '../UserProfile/UserProfile'
+import UserAvatar from '../UserAvatar/UserAvatar'
 
 class User extends PureComponent {
 

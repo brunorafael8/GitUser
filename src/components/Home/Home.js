@@ -5,14 +5,14 @@ import { QueryRenderer, graphql } from 'react-relay'
 
 import styled from 'styled-components';
 
-import environment from 'src/environment'
+import environment from '../../environment'
 
-import User from 'components/User/User'
+import User from '../User/User'
 
-import Header from 'components/Header/Header'
-import Title from 'components/Title/Title';
-import Search  from 'components/Search/Search';
-import SearchButton from 'components/SearchButton/SearchButton'
+import Header from '../Header/Header'
+import Title from '../Title/Title';
+import Search  from '../Search/Search';
+import SearchButton from '../SearchButton/SearchButton'
 
 import './Home.css';
 

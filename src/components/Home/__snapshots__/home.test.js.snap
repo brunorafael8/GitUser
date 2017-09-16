@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test UI has the expected UI output 1`] = `
+<div>
+  <div
+    className="sc-gzVnrw fMOJSM"
+  >
+    <h1
+      className="sc-htoDjs jbJRmU"
+    >
+      Search for your github user
+    </h1>
+    <form
+      className="form form__search"
+      onSubmit={[Function]}
+    >
+      <input
+        className="sc-dnqmqq jrpzfl"
+        name="search"
+        placeholder="Ex.: brunorafael8"
+        type="text"
+      />
+      <button
+        className="sc-iwsKbI xLoYR"
+        value="Buscar"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+</div>
+`;

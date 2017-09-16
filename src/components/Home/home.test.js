@@ -4,7 +4,10 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import Home from './Home'
 
-it('Should Title match to snapshot', () => {
-  const tree = renderer.create(<Title>Título</Title>).toJSON()
-  expect(tree).toMatchSnapshot()
-})
+describe('Test UI', () => {
+  it('has the expected UI output', () => {
+    const tree = renderer.create(<Home />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+  });
+});
