@@ -78,12 +78,12 @@ module.exports = {
     ]
   },
 
-  // resolve: common.resolve
+  resolve: common.resolve
 
-  resolve: {
-    alias: Object.assign({}, common.resolve.alias, {
-      'react': 'preact-compat',
-      'react-dom': 'preact-compat'
-    })
-  }
-}
+//   resolve: {
+//     alias: Object.assign({}, common.resolve.alias, {
+//       'react': 'preact-compat',
+//       'react-dom': 'preact-compat'
+//     })
+//   }
+// }

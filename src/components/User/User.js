@@ -5,6 +5,10 @@ import {
   createFragmentContainer,
   graphql
 } from 'react-relay'
+
+import UserProfile from './UserProfile/UserProfile'
+import UserAvatar from './UserAvatar/UserAvatar'
+
 class User extends PureComponent {
 
   render() {
@@ -12,7 +16,7 @@ class User extends PureComponent {
     return(
       <div className="container">
         <UserCard>
-          <UserDados>
+          <UserProfile>
           <UserAvatar src={user.avatarUrl} alt="" />
           <UserName >{user.name}</UserName>
           <UserLogin >{user.login}</UserLogin>
@@ -26,7 +30,7 @@ class User extends PureComponent {
               user.organizations.edges.map( ({node}) => <a aria-label={node.login} href={node.url} key={node.id}  ><img src={node.avatarUrl} style={styles.UserOrganizaiton} /></a> )
             }
           </UserOrganizaitons>
-          </UserDados>
+          </UserProfile>
         </UserCard>
       </div>
     )
@@ -40,35 +44,21 @@ const UserCard = styled.div`
     flex-direction: row;
   }
 `
-const UserDados = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: 30px;
-  padding: 20px;
-`
 const UserOrganizaitons = styled.div`
   display: flex;
 
 `
-const UserAvatar = styled.img`
-  width: 229px;
-  height: 230px;
-  @media (max-width: 500px) {
-    width: 110px;
-    height: 110px;
-  }
-`
 const UserName = styled.span`
   color: '#24292e';
   font-size: 26px;
-  media (max-width: 500px) {
+  @media (max-width: 500px) {
     font-size: 16px;
   }
 `
 const UserLogin = styled.span`
   color: '#666';
   fontSize: 20px;
-  media (max-width: 500px) {
+  @media (max-width: 500px) {
     font-size: 14px;
   }
 `
@@ -78,7 +68,7 @@ const Userlinks = styled.a`
   &:hover {
     text-decoration: underline;
   }
-  media (max-width: 500px) {
+  @media (max-width: 500px) {
     font-size: 14px;
 
   }

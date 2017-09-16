@@ -7,10 +7,11 @@
 
 .form__search input {
   flex-grow: 2;
-  margin: 0 .5rem;
+  margin: 10px;
 }
 
 .form__search button,
 .form__search input[type="submit"], {
   flex-grow: 1;
+
 }
