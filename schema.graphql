@@ -371,6 +371,9 @@ type Bot implements Node, Actor, UniformResourceLocatable {
     size: Int
   ): URI!
 
+  # Identifies the date and time when the object was created.
+  createdAt: DateTime!
+
   # Identifies the primary key from the database.
   databaseId: Int @deprecated(reason: "Exposed database IDs will eventually be removed in favor of global Relay IDs.")
   id: ID!
@@ -380,6 +383,9 @@ type Bot implements Node, Actor, UniformResourceLocatable {
 
   # The HTTP path for this bot
   resourcePath: URI!
+
+  # Identifies the date and time when the object was last updated.
+  updatedAt: DateTime! @deprecated(reason: "General type updated timestamps will eventually be replaced by other field specific timestamps.")
 
   # The HTTP URL for this bot
   url: URI!
@@ -1405,6 +1411,9 @@ type GistComment implements Node, Comment, Deletable, Updatable, UpdatableCommen
 
   # The actor who edited the comment.
   editor: Actor
+
+  # The associated gist.
+  gist: Gist
   id: ID!
 
   # The moment the editor made the last edit
@@ -1843,7 +1852,7 @@ type Issue implements Node, Assignable, Closable, Comment, Updatable, UpdatableC
   # Identifies the state of the issue.
   state: IssueState!
 
-  # A list of events associated with an Issue.
+  # A list of events, comments, commits, etc. associated with the issue.
   timeline(
     # Returns the first _n_ elements from the list.
     first: Int
@@ -2937,10 +2946,13 @@ type OrganizationIdentityProvider implements Node {
 }
 
 # An Invitation for a user to an organization.
-type OrganizationInvitation {
+type OrganizationInvitation implements Node {
   # The email address of the user invited to the organization.
   email: String
   id: ID!
+
+  # The type of invitation that was sent (e.g. email, user).
+  invitationType: OrganizationInvitationType!
 
   # The user who was invited to the organization.
   invitee: User
@@ -2989,6 +3001,15 @@ enum OrganizationInvitationRole {
 
   # The user's previous role will be reinstated.
   REINSTATE
+}
+
+# The possible organization invitation types.
+enum OrganizationInvitationType {
+  # The invitation was to an existing user.
+  USER
+
+  # The invitation was to an email address.
+  EMAIL
 }
 
 # Information about pagination in a connection.
@@ -3658,7 +3679,7 @@ type PullRequest implements Node, Assignable, Closable, Comment, Updatable, Upda
   # A list of reviewer suggestions based on commit history and past review comments.
   suggestedReviewers: [SuggestedReviewer]!
 
-  # A list of events associated with a PullRequest.
+  # A list of events, comments, commits, etc. associated with the pull request.
   timeline(
     # Returns the first _n_ elements from the list.
     first: Int
@@ -4624,6 +4645,9 @@ type ReleaseAsset implements Node {
 
   # The number of times this asset was downloaded
   downloadCount: Int!
+
+  # Identifies the URL where you can download the release asset via the browser.
+  downloadUrl: URI!
   id: ID!
 
   # Identifies the title of the release asset.
@@ -6947,7 +6971,7 @@ type User implements Node, Actor, RepositoryOwner, UniformResourceLocatable {
 
     # Returns the elements in the list that come before the specified global ID.
     before: String
-  ): IssueCommentConnection!
+  ): GistCommentConnection!
 
   # A list of the Gists the user has created.
   gists(

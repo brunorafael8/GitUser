@@ -4,6 +4,7 @@ const {
   RecordSource,
   Store,
 } = require('relay-runtime')
+import token from './token'
 
 const store = new Store(new RecordSource())
 
@@ -16,7 +17,7 @@ const network = Network.create((
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer 99707c8db6a461bd24f95cd4e2caf77aae5a5468',
+      'Authorization': 'Bearer ' + token,
     },
     body: JSON.stringify({
       query: operation.text,

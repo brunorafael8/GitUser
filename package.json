@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "yarn run schema && yarn run relay && yarn dev",
+    "start": "yarn run token && yarn run schema && yarn run relay && yarn dev",
     "dev": "webpack-dashboard -- node server.js",
     "test": "jest --coverage",
     "test:watch": "yarn test -- --watch",
@@ -13,7 +13,8 @@
     "build-storybook": "cross-env NODE_ENV=production BABEL_ENV=production build-storybook -c storybook",
     "update-packages": "node scripts/update.js",
     "relay": "relay-compiler --src ./src --schema schema.graphql",
-    "schema": "node scripts/createGithubSchema.js"
+    "schema": "node scripts/createGithubSchema.js",
+    "token": "node scripts/getTokenGithub.js"
   },
   "jest": {
     "moduleNameMapper": {
