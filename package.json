@@ -17,6 +17,11 @@
     "token": "node scripts/getTokenGithub.js"
   },
   "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "./dist"
+    ],
     "moduleNameMapper": {
       "^.+\\.css$": "<rootDir>/config/CSSStub.js"
     }
@@ -55,6 +60,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.22.0",
+    "isomorphic-fetch": "^2.2.1",
     "preact": "^7.2.1",
     "preact-compat": "^3.14.3",
     "prop-types": "^15.5.8",

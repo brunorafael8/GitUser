@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test UI UserProfile The component UserProfile has the expected UI output 1`] = `
+<div>
+  Searching for , loading ...
+</div>
+`;
