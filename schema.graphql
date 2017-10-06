@@ -428,6 +428,18 @@ type CodeOfConduct {
   url: URI
 }
 
+# Collaborators affiliation level with a repository.
+enum CollaboratorAffiliation {
+  # All outside collaborators of an organization-owned repository.
+  OUTSIDE
+
+  # All collaborators with permissions to an organization-owned repository, regardless of organization membership status.
+  DIRECT
+
+  # All collaborators the authenticated user can see.
+  ALL
+}
+
 # Represents a comment.
 interface Comment {
   # The actor who authored the comment.
@@ -720,7 +732,7 @@ type CommitComment implements Node, Comment, Deletable, Updatable, UpdatableComm
     orderBy: ReactionOrder
   ): ReactionConnection!
 
-  # Identifies the repository associated with the comment.
+  # The repository associated with this node.
   repository: Repository!
 
   # The HTTP path permalink for this commit comment.
@@ -890,6 +902,9 @@ type CrossReferencedEvent implements Node, UniformResourceLocatable {
   # Checks if the target will be closed when the source is merged.
   willCloseTarget: Boolean!
 }
+
+# An ISO-8601 encoded date string.
+scalar Date
 
 # An ISO-8601 encoded UTC date string.
 scalar DateTime
@@ -1413,7 +1428,7 @@ type GistComment implements Node, Comment, Deletable, Updatable, UpdatableCommen
   editor: Actor
 
   # The associated gist.
-  gist: Gist
+  gist: Gist!
   id: ID!
 
   # The moment the editor made the last edit
@@ -1538,6 +1553,27 @@ type GitActor {
 
   # The GitHub user corresponding to the email field. Null if no such user exists.
   user: User
+}
+
+# Represents information about the GitHub instance.
+type GitHubMetadata {
+  # Returns a String that's a SHA of `github-services`
+  gitHubServicesSha: String!
+
+  # IP addresses that users connect to for git operations
+  gitIpAddresses: [String!]
+
+  # IP addresses that service hooks are sent from
+  hookIpAddresses: [String!]
+
+  # IP addresses that the importer connects from
+  importerIpAddresses: [String!]
+
+  # Whether or not users are verified
+  isPasswordAuthenticationVerifiable: Boolean!
+
+  # IP addresses for GitHub Pages' A records
+  pagesIpAddresses: [String!]
 }
 
 # Represents a Git object.
@@ -1843,7 +1879,7 @@ type Issue implements Node, Assignable, Closable, Comment, Updatable, UpdatableC
     orderBy: ReactionOrder
   ): ReactionConnection!
 
-  # Identifies the repository associated with the issue.
+  # The repository associated with this node.
   repository: Repository!
 
   # The HTTP path for this issue
@@ -3628,7 +3664,7 @@ type PullRequest implements Node, Assignable, Closable, Comment, Updatable, Upda
     orderBy: ReactionOrder
   ): ReactionConnection!
 
-  # The repository associated with this pull request.
+  # The repository associated with this node.
   repository: Repository!
 
   # The HTTP path for this pull request.
@@ -3979,7 +4015,7 @@ type PullRequestReviewComment implements Node, Comment, Deletable, Updatable, Up
   # The comment this is a reply to.
   replyTo: PullRequestReviewComment
 
-  # The repository associated with this review comment.
+  # The repository associated with this node.
   repository: Repository!
 
   # The HTTP path permalink for this review comment.
@@ -4208,6 +4244,9 @@ type Query {
 
   # Return a list of known open source licenses
   licenses: [License]!
+
+  # Return information about the GitHub instance
+  meta: GitHubMetadata!
 
   # Fetches an object given its ID.
   node(
@@ -4833,6 +4872,24 @@ type Repository implements Node, ProjectOwner, Subscribable, Starrable, UniformR
   # Returns the code of conduct for this repository
   codeOfConduct: CodeOfConduct
 
+  # A list of collaborators associated with the repository.
+  collaborators(
+    # Returns the first _n_ elements from the list.
+    first: Int
+
+    # Returns the elements in the list that come after the specified global ID.
+    after: String
+
+    # Returns the last _n_ elements from the list.
+    last: Int
+
+    # Returns the elements in the list that come before the specified global ID.
+    before: String
+
+    # Collaborators affiliation level with a repository.
+    affiliation: CollaboratorAffiliation
+  ): RepositoryCollaboratorConnection
+
   # A list of commit comments associated with the repository.
   commitComments(
     # Returns the first _n_ elements from the list.
@@ -4920,6 +4977,9 @@ type Repository implements Node, ProjectOwner, Subscribable, Starrable, UniformR
   # The repository's URL.
   homepageUrl: URI
   id: ID!
+
+  # Indicates if the repository is archived.
+  isArchived: Boolean!
 
   # Identifies if the repository is a fork.
   isFork: Boolean!
@@ -5317,6 +5377,30 @@ enum RepositoryCollaboratorAffiliation {
   OUTSIDE
 }
 
+# The connection type for User.
+type RepositoryCollaboratorConnection {
+  # A list of edges.
+  edges: [RepositoryCollaboratorEdge]
+
+  # A list of nodes.
+  nodes: [User]
+
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # Identifies the total count of items in the connection.
+  totalCount: Int!
+}
+
+# Represents a user who is a collaborator of a repository.
+type RepositoryCollaboratorEdge {
+  cursor: String!
+  node: User!
+
+  # The permission the user has on the repository.
+  permission: RepositoryPermission!
+}
+
 # A list of repositories owned by the subject.
 type RepositoryConnection {
   # A list of edges.
@@ -5363,6 +5447,9 @@ interface RepositoryInfo {
 
   # The repository's URL.
   homepageUrl: URI
+
+  # Indicates if the repository is archived.
+  isArchived: Boolean!
 
   # Identifies if the repository is a fork.
   isFork: Boolean!
@@ -5449,6 +5536,9 @@ type RepositoryInvitationRepository implements RepositoryInfo {
 
   # The repository's URL.
   homepageUrl: URI
+
+  # Indicates if the repository is archived.
+  isArchived: Boolean!
 
   # Identifies if the repository is a fork.
   isFork: Boolean!
