@@ -78,3 +78,4 @@ module.exports = {
   },
 
   resolve: common.resolve
+}
