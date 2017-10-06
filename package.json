@@ -1,30 +1,18 @@
 {
-  "scripts": {
-    "start": "yarn run token && yarn run schema && yarn run relay && yarn dev",
-    "dev": "webpack-dashboard -- node server.js",
-    "test": "jest --coverage",
-    "test:watch": "yarn test -- --watch",
-    "lint": "standard --parser babel-eslint --verbose | snazzy",
-    "lint:watch": "gulp",
-    "lint:fix": "standard --fix",
-    "build": "cross-env NODE_ENV=production BABEL_ENV=production webpack --progress --config webpack/prod.config -p",
-    "build:analyzer": "cross-env ANALYZER=true yarn build",
-    "storybook": "start-storybook -p 6006 -c storybook",
-    "build-storybook": "cross-env NODE_ENV=production BABEL_ENV=production build-storybook -c storybook",
-    "update-packages": "node scripts/update.js",
-    "relay": "relay-compiler --src ./src --schema schema.graphql",
-    "schema": "node scripts/createGithubSchema.js",
-    "token": "node scripts/getTokenGithub.js"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "./dist"
-    ],
-    "moduleNameMapper": {
-      "^.+\\.css$": "<rootDir>/config/CSSStub.js"
-    }
+  "name": "GitUser",
+  "version": "0.0.1",
+  "dependencies": {
+    "babel-runtime": "^6.22.0",
+    "isomorphic-fetch": "^2.2.1",
+    "preact": "^8.2.5",
+    "preact-compat": "^3.14.3",
+    "prop-types": "^15.5.8",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-loadable": "^4.0.5",
+    "react-relay": "^1.3.0",
+    "react-router-dom": "^4.2.2",
+    "styled-components": "^2.1.2"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
@@ -58,17 +46,31 @@
     "webpack-dashboard": "^0.3.0",
     "webpack-dev-server": "^2.3.0"
   },
-  "dependencies": {
-    "babel-runtime": "^6.22.0",
-    "isomorphic-fetch": "^2.2.1",
-    "preact": "^8.2.5",
-    "preact-compat": "^3.14.3",
-    "prop-types": "^15.5.8",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-loadable": "^4.0.5",
-    "react-relay": "^1.3.0",
-    "react-router-dom": "^4.2.2",
-    "styled-components": "^2.1.2"
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "./dist"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.css$": "<rootDir>/config/CSSStub.js"
+    }
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production BABEL_ENV=production webpack --progress --config webpack/prod.config -p",
+    "build-storybook": "cross-env NODE_ENV=production BABEL_ENV=production build-storybook -c storybook",
+    "build:analyzer": "cross-env ANALYZER=true yarn build",
+    "dev": "webpack-dashboard -- node server.js",
+    "lint": "standard --parser babel-eslint --verbose | snazzy",
+    "lint:fix": "standard --fix",
+    "lint:watch": "gulp",
+    "relay": "relay-compiler --src ./src --schema schema.graphql",
+    "schema": "node scripts/createGithubSchema.js",
+    "start": "yarn run token && yarn run schema && yarn run relay && yarn dev",
+    "storybook": "start-storybook -p 6006 -c storybook",
+    "test": "jest --coverage",
+    "test:watch": "yarn test -- --watch",
+    "token": "node scripts/getTokenGithub.js",
+    "update-packages": "node scripts/update.js"
   }
 }
